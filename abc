@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vi vector<int>
+#define vb vector<bool>
+#define pb push_back
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
+#define f(i,a,b) for(int i=a;i<b;i++)
+#define fr(i,a,b) for(int i=a;i>=b;i--)
+
+vector<pair<int, int>> movements = {
+    {1,0},{-1,0},{0,1},{0,-1}
+};
+bool isposs(int x, int y, int r ,int c, unordered_map<char, int>& mp,vector<vector<char>>& v ){
+    return x>=0 && y>=0 && x<r && y<c && v[x][y]!='.' && mp[v[x][y]]==0;
+}
+int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL); cout.tie(NULL);
+int t=1;
+// cin>>t;
+while(t--){
+    int n,m;
+    cin>>n>>m;
+    char c;
+    cin>>c;
+    vector<vector<char>> v(n, vector<char>(m));
+    queue<pair<int, int>> q;
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>v[i][j];
+            if(v[i][j]==c){
+                q.push(make_pair(i,j));
+            }
+        }
+    }
+    unordered_map<char, int> mp;
+    mp[c] = 1;
+    int ans =0;
+    while(!q.empty()){
+        int size = q.size();
+        while(size--){
+            pair<int,int> p = q.front();
+            q.pop();
+            for(auto& child:movements){
+                if(isposs(p.first + child.first, p.second + child.second,n,m, mp, v)){
+                    ans++;
+                    mp[v[p.first + child.first][p.second + child.second]] = 1;
+                }
+            }
+        }
+    }
+    cout<<ans<<endl;
+
+}
+ return 0;
+}
