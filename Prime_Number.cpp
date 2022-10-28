@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 int main() {
@@ -15,7 +16,7 @@ int main() {
   }
 
   // loop to check if n is prime
-  for (i = 2; i <= n/2; ++i) {
+  for (i = 2; i <= pow(n, 0.5); ++i) {
     if (n % i == 0) {
       is_prime = false;
       break;
